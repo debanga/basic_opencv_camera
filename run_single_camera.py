@@ -5,24 +5,32 @@ import os
 import cv2
 import traceback
 import matplotlib.pyplot as plt
+import camera_utils
 
 
 if __name__ == '__main__':
-    save_path = 'camera0'
+    save_path = 'results/camera0'
     camera0 = None
 
     try:
         camera0 = cv2.VideoCapture(0)
+        print(camera0)
+        """
+        camera0 = cv2.VideoCapture(0)
         camera0.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
         camera0.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
         os.makedirs(save_path, exist_ok=True)
+        """
         i = 0
-        while True:
+        while i < 3:
+            """
             return_value, image0 = camera0.read()
             image0_rgb = cv2.cvtColor(image0, cv2.COLOR_BGR2RGB)
-            plt.imshow(image0_rgb)
-            plt.show()
+            #plt.imshow(image0_rgb)
+            #plt.show()
             cv2.imwrite(os.path.join(save_path, str(i) + '.png'), image0)
+            """
+            print(i)
             i += 1
     except Exception:
         print('Something went wrong with image capture')
@@ -30,3 +38,4 @@ if __name__ == '__main__':
     finally:
         if camera0 is not None:
             del camera0
+        
