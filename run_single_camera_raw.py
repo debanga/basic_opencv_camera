@@ -24,7 +24,9 @@ if __name__ == '__main__':
         print(f"FPS set: {ret}")
         ret, camera0 = camera_utils.set_exposure(camera0, -1)
         print(f"Exposure set: {ret}")
-
+        ret, camera0 = camera_utils.set_rawcapture(camera0, True)
+        print(f"Raw capture set: {ret}")
+        
         # Print camera parameter values
         camera_utils.print_params(camera0)
 
@@ -34,8 +36,10 @@ if __name__ == '__main__':
         i = 0
         while i < 2:    
             return_value, image0 = camera0.read()
-            image0_rgb = cv2.cvtColor(image0, cv2.COLOR_BGR2RGB)
-            cv2.imwrite(os.path.join(save_path, str(i) + '.png'), image0)
+
+            #image0_rgb = cv2.cvtColor(image0, cv2.COLOR_BGR2RGB)
+            cv2.imwrite(os.path.join(save_path, str(i) + '_raw.png'), image0)
+            
             i += 1
 
     except Exception:

@@ -46,19 +46,35 @@ def print_params(camera):
     print(f"Auto White Balance: {auto_wb}")
 
 
-def set_framesize(camera, width=1920, height=1080):
+def set_framesize(camera, width=3264, height=2448):
     """
     Set capture frame size
     """
-    camera.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-    return camera
+    ret1 = camera.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+    ret2 = camera.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+    ret = ret1 & ret2
+    return ret, camera
 
 
 def set_fps(camera, fps):
     """
     Set capture fps (frame per second)
     """
-    camera.set(cv2.CAP_PROP_FPS, fps)
-    return camera
+    ret = camera.set(cv2.CAP_PROP_FPS, fps)
+    return ret, camera
 
+
+def set_exposure(camera, exposure):
+    """
+    Set exposure
+    """
+    ret = camera.set(cv2.CAP_PROP_EXPOSURE, exposure)
+    return ret, camera
+
+
+def set_rawcapture(camera, is_raw=False):
+    """
+    Set raw capture
+    """
+    ret =  camera.set(cv2.CAP_PROP_CONVERT_RGB, ~is_raw)
+    return ret, camera
